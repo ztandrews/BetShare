@@ -11,3 +11,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.logo{
+  color:#0d6efd;
+}
+
+.logout{
+  background-color:#dc3545;
+  border-radius: 4px;
+  color: white;
+  border: none;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.logout:hover {opacity: .8}
+
+
+.page-header{
+  font-size: 300%;
+  text-align: center;
+}
