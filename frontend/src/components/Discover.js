@@ -18,14 +18,23 @@ export default class Discover extends Component {
         return (
             <div className = "container">
                 <h1 className = "page-header">Discover</h1>
-                <ul>
+                <h1>Users</h1>
+                <br></br>
+                <div>
                     {
-                        this.state.users
-                        .map(user => 
-                            <li key={user.id}>{user.name}</li>
-                            )
+                        this.state.users.map(user => {
+                            return(
+                                <tr key={user.id}>
+                                <h2>{user.name}</h2>
+                                <h3>{user.username}</h3>
+                                <h3>Record: {user.wins}-{user.losses}</h3>
+                                <br></br>
+                                </tr>
+                            );
+                        }
+                    )
                     }
-                </ul>
+                </div>
             </div>
         )
     }
