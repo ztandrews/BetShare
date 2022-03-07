@@ -1,5 +1,7 @@
 #How we present our data in FastAPI
 
+
+#How users will be presented
 def user_serializer(user) -> dict:
     return{
         "id":str(user["_id"]),
@@ -14,7 +16,8 @@ def user_serializer(user) -> dict:
 def users_serializer(users) -> list:
     return [user_serializer(user) for user in users]
 
-
+#How bets will be presented
+#Note - For document references, we need to add a str wrapper around them for them to work
 def bet_serializer(bet) -> dict:
     return{
         "id":str(bet["_id"]),

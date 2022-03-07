@@ -3,6 +3,7 @@ from subprocess import list2cmdline
 from pydantic import BaseModel
 from bson import ObjectId
 
+#User class model
 class User(BaseModel):
     _id: ObjectId
     name:str
@@ -12,6 +13,7 @@ class User(BaseModel):
     username:str
     wins:int
 
+#Bet class model
 class Bet(BaseModel):
     _id: ObjectId
     user: list

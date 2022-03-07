@@ -8,9 +8,9 @@ url = "mongodb+srv://zach:andrews@cluster0.gddn1.mongodb.net/BetShare?retryWrite
 
 #Connect to our databse using MongoClient
 client = MongoClient(url, tlsCAFile=ca)
-
 db = client.BetShare
 
+#Declare databases
 users_collection = db["users"]
-
 bets_collection = db["bets"]
+teams_collection = db["teams"]
