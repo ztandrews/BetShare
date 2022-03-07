@@ -12,3 +12,5 @@ client = MongoClient(url, tlsCAFile=ca)
 db = client.BetShare
 
 users_collection = db["users"]
+
+bets_collection = db["bets"]

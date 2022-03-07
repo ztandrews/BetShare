@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from config.database import users_collection
+from config.database import users_collection, bets_collection
 from models.models import User
-from schemas.schemas import user_serializer, users_serializer
+from schemas.schemas import user_serializer, users_serializer, bet_serializer, bets_serializer
 
 api_router = APIRouter()
 
@@ -15,3 +15,31 @@ async def welcome():
 async def get_users():
     users = users_serializer(users_collection.find())
     return {"status":"ok", "data":users}
+
+@api_router.get("/bets")
+async def get_bets():
+    bets = bets_serializer(bets_collection.aggregate([
+    {
+        '$lookup': {
+            'from': 'teams',
+            'localField': 'team_for',
+            'foreignField': '_id',
+            'as': 'team_for'
+        }
+    }, {
+        '$lookup': {
+            'from': 'teams',
+            'localField': 'team_agaisnt',
+            'foreignField': '_id',
+            'as': 'team_agaisnt'
+        }
+    }, {
+        '$lookup': {
+            'from': 'users',
+            'localField': 'user',
+            'foreignField': '_id',
+            'as': 'user'
+        }
+    }
+]))
+    return {"status":"ok", "data":bets}

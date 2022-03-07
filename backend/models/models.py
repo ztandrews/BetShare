@@ -1,3 +1,5 @@
+from datetime import datetime
+from subprocess import list2cmdline
 from pydantic import BaseModel
 from bson import ObjectId
 
@@ -9,3 +11,16 @@ class User(BaseModel):
     losses:int
     username:str
     wins:int
+
+class Bet(BaseModel):
+    _id: ObjectId
+    user: list
+    team_for: list
+    team_against:list
+    details: str
+    amount: float
+    odds: str
+    comments: list
+    likes: int
+    outcome: str
+    date: datetime
