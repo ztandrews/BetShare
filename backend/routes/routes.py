@@ -3,6 +3,7 @@ from config.database import users_collection, bets_collection, teams_collection
 from models.models import User
 from schemas.schemas import user_serializer, users_serializer, bet_serializer, bets_serializer, team_searializer, teams_searializer
 from bson import ObjectId
+import pymongo
 
 api_router = APIRouter()
 
@@ -22,9 +23,8 @@ async def get_users():
 async def get_user_by_id(user_id):
     id = user_id
     id_object = ObjectId(id)
-    user = user_serializer(users_collection.findOne({"_id":id_object}))
+    user = users_serializer(users_collection.find({"_id":id_object}))
     return {"status":"ok", "data":user}
-
 
 #Get all bets
 @api_router.get("/bets")

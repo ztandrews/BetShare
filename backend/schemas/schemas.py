@@ -19,7 +19,6 @@ def users_serializer(users) -> list:
     return [user_serializer(user) for user in users]
 
 #How bets will be presented
-#Note - For document references, we need to add a str wrapper around them for them to work
 def bet_serializer(bet) -> dict:
     user_dict = bet["user"][0]
     team_for_dict = bet["team_for"][0]
