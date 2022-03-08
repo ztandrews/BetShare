@@ -22,7 +22,7 @@ export default class NavbarComp extends Component {
                                     <Nav.Link as={Link} to={"/"}>Feed</Nav.Link>
                                     <Nav.Link as={Link} to={"/account"}>Account</Nav.Link>
                                     <Nav.Link as={Link} to={"/discover"}>Discover</Nav.Link>
-                                    <button className='logout'>Logout</button>
+                                    <button className='red-btn'>Logout</button>
                                 </Nav>
                             </Navbar.Collapse>
                         </Container>

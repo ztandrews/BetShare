@@ -39,6 +39,7 @@ def bet_serializer(bet) -> dict:
 
         "amount":bet["amount"],
         "odds":bet["odds"],
+        "details":bet["details"],
         "outcome":bet["outcome"],
         "likes":bet["likes"],
         "date":bet["date"],

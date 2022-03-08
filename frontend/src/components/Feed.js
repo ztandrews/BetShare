@@ -17,18 +17,25 @@ export default class Feed extends Component {
         return (
             <div className = "container">
                 <h1 className = "page-header">Feed</h1>
+               
                 <div>
                     {
                         this.state.bets.map(bet => {
                            
                             return(
-                                <tr key={bet.id}>
-        
-                                <h2>{bet.team_for} - {bet.details}</h2>
-                                <h3>{bet.odds}</h3>
-                                <h3></h3>
+                                <div key={bet.id}>
+                                <div className='bet'>
+                                <h2>{bet.user.name}</h2>
+                                <h5>@{bet.user.username}</h5>
+                                <hr></hr>
+                                <h2>{bet.team_for.city} {bet.team_for.team} {bet.details}</h2>
+                                <h5>{bet.odds}</h5>
+                                <h5>${bet.amount}</h5>
+                                <h5>Status: {bet.outcome}</h5>
+                                
+                                </div>
                                 <br></br>
-                                </tr>
+                                </div>
                             );
                         }
                     )

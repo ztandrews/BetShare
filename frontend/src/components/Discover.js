@@ -18,7 +18,6 @@ export default class Discover extends Component {
         return (
             <div className = "container">
                 <h1 className = "page-header">Discover</h1>
-                <h1>Users</h1>
                 <br></br>
                 <div>
                     {
