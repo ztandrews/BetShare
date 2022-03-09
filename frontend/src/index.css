@@ -12,8 +12,12 @@ code {
     monospace;
 }
 
-.logo{
+.blue{
   color:#0d6efd;
+}
+
+.red{
+  color:#dc3545;
 }
 
 .red-btn{
@@ -28,13 +32,28 @@ code {
 
 .red-btn:hover {opacity: .8}
 
+.blue-btn{
+  background-color:#0d6efd;
+  border-radius: 4px;
+  color: white;
+  border: none;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.blue-btn:hover {opacity: .8}
+
+
 .page-header{
   font-size: 300%;
+  text-align: center;
   color:#0d6efd;
 }
 
 .bet{
-  background-color: #e4e4e4;
+  background-color: #f8f9fa;
   border-radius: 5px;
   margin: 0 auto;
   width: 100%;
