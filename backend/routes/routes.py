@@ -28,8 +28,7 @@ async def get_user_by_id(user_id):
 
 #Get all bets
 @api_router.get("/bets")
-async def get_bets():
-  
+async def get_bets(): 
     bets = bets_serializer(bets_collection.aggregate([
     {
         '$lookup': {
@@ -62,3 +61,10 @@ async def get_teams():
     teams = teams_searializer(teams_collection.find())
     return {"status":"ok", "data":teams}
 
+#Get teams by league
+@api_router.get("/teams/{league}")
+async def get_teams_by_league(league):
+    teams = teams_searializer(teams_collection.find({"league":league}))
+    return {"status":"ok","data":teams}
+
+    

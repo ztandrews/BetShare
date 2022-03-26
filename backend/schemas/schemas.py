@@ -2,7 +2,6 @@ from bson import ObjectId
 from bson.json_util import dumps, CANONICAL_JSON_OPTIONS, loads
 #How we present our data in FastAPI
 
-
 #How users will be presented
 def user_serializer(user) -> dict:
     return{
