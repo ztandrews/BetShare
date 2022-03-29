@@ -21,7 +21,7 @@ def users_serializer(users) -> list:
 def bet_serializer(bet) -> dict:
     user_dict = bet["user"][0]
     team_for_dict = bet["team_for"][0]
-    team_against_dict = bet["team_agaisnt"][0]
+    team_against_dict = bet["team_against"][0]
 
     return{
         "id":str(bet["_id"]),

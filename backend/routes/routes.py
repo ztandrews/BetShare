@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from config.database import users_collection, bets_collection, teams_collection
-from models.models import User
+from models.models import User, Bet
 from schemas.schemas import user_serializer, users_serializer, bet_serializer, bets_serializer, team_searializer, teams_searializer
 from bson import ObjectId
 import pymongo
@@ -40,9 +40,9 @@ async def get_bets():
     }, {
         '$lookup': {
             'from': 'teams',
-            'localField': 'team_agaisnt',
+            'localField': 'team_against',
             'foreignField': '_id',
-            'as': 'team_agaisnt'
+            'as': 'team_against'
         }
     }, {
         '$lookup': {
@@ -67,4 +67,8 @@ async def get_teams_by_league(league):
     teams = teams_searializer(teams_collection.find({"league":league}))
     return {"status":"ok","data":teams}
 
-    
+#Post a new bet
+@api_router.post("/bets")
+async def post_bet(bet: Bet):
+    _id = bets_collection.insert_one(dict(bet))
+    return {"status":"ok", "data":"beokt"}
