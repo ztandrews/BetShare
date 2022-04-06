@@ -28,6 +28,7 @@ code {
   transition: 0.3s;
   display: inline-block;
   text-decoration: none;
+  padding: 8px 15px;
 }
 
 .red-btn:hover {opacity: .8}
@@ -40,7 +41,7 @@ code {
   transition: 0.3s;
   display: inline-block;
   text-decoration: none;
-  margin-right: 10px;
+  padding: 8px 15px;
 }
 
 .blue-btn:hover {opacity: .8}
@@ -59,3 +60,18 @@ code {
   width: 100%;
 }
 
+
+.login{
+    background-color: #f8f9fa;
+  border-radius: 5px;
+  justify-content: center;
+  /* Center horizontally*/
+    width: 50%;
+  height: 60%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+form{
+text-align: center;
+}

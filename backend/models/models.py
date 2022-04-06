@@ -9,7 +9,7 @@ Here is an example POST query:
 {
   "user": "62013009229563fdf6f8a1c3",
   "team_for": "6201411f229563fdf6f8a1d1",
-  "team_agaisnt": "6201414e229563fdf6f8a1d2",
+  "team_against": "6201414e229563fdf6f8a1d2",
   "details": "Moneyline",
   "amount": 100,
   "odds": "-110",
@@ -54,10 +54,8 @@ class Bet(BaseModel):
     details: str
     amount: float
     odds: str
-    comments: list
     likes: int
     outcome: str
-    date: datetime
     class Config:
         allow_population_by_field_name = True
         arbitrary_types_allowed = True
