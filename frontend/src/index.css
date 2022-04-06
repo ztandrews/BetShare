@@ -53,6 +53,11 @@ code {
   color:#0d6efd;
 }
 
+.page-subheader{
+    text-align: center;
+  color:#0d6efd;
+}
+
 .bet{
   background-color: #f8f9fa;
   border-radius: 5px;
@@ -62,14 +67,14 @@ code {
 
 
 .login{
-    background-color: #f8f9fa;
-  border-radius: 5px;
-  justify-content: center;
-  /* Center horizontally*/
-    width: 50%;
-  height: 60%;
-  margin: 0 auto;
-  text-align: center;
+  background-color: #f8f9fa;
+border-radius: 5px;
+justify-content: center;
+/* Center horizontally*/
+  width: 50%;
+height: 60%;
+margin: 0 auto;
+text-align: center;
 }
 
 form{

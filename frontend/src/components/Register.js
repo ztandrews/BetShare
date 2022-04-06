@@ -1,6 +1,10 @@
 import React from 'react';
 import {useRef, useState, useEffect} from 'react';
 import axios from 'axios';
+import { Navbar, Nav,  Container, Button } from 'react-bootstrap'
+import {
+    Link, useNavigate
+} from "react-router-dom";
 
 function Register  (){
 
@@ -35,6 +39,13 @@ function Register  (){
     };
 
   return (
+      <div>
+          <Navbar collapseOnSelect expand="lg" variant="light" bg="light">
+              <Container>
+                            <Navbar.Brand><h3 className='blue'>BetShare</h3></Navbar.Brand>
+                </Container>
+          </Navbar>
+      
       <div className='container'>
           <h1 className='page-header'>Register</h1>
           <div className='login'>
@@ -69,10 +80,12 @@ function Register  (){
                   <br></br>
                   <button className='blue-btn' onClick={register}>Register</button>
                   <br></br>
-                  <br></br>
+                  
+                  <Nav.Link as={Link} to={"/login"}>Back to Login</Nav.Link>
                   
 
           </div>
+      </div>
       </div>
   )
 }

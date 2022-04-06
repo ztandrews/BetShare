@@ -44,6 +44,13 @@ function Login  (){
 
 
   return (
+      <div>
+          <Navbar collapseOnSelect expand="lg" variant="light" bg="light">
+              <Container>
+                            <Navbar.Brand><h3 className='blue'>BetShare</h3></Navbar.Brand>
+                </Container>
+          </Navbar>
+
       <div className='container'>
           <h1 className='page-header'>Login</h1>
           <div className='login'>
@@ -71,6 +78,7 @@ function Login  (){
 
           </div>
           
+      </div>
       </div>
   )
 }

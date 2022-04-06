@@ -24,7 +24,7 @@ export default class NavbarComp extends Component {
                                     <Nav.Link as={Link} to={"/discover"}>Discover</Nav.Link>
                                     <Nav.Link as={Link} to={"/add_bet"}>Add Bet</Nav.Link>
                                     
-                                    <button className='red-btn'>Logout</button>
+                                    <Nav.Link as={Link} to={"/login"}>Logout</Nav.Link>
                                 </Nav>
                             </Navbar.Collapse>
                         </Container>

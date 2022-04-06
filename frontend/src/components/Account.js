@@ -13,16 +13,26 @@ export default class Account extends Component {
         const user = localStorage.getItem('user_id')
         axios.get(`http://127.0.0.1:8000/bets/${user}`).then(res => {
             const bets = res.data.data;
-            console.log(bets);
+           
             this.setState({bets: bets});
         })
+
+        axios.get(`http://127.0.0.1:8000/users/${user}`).then(res => {
+            const currentUser = res.data.data[0];
+            console.log(currentUser)
+            this.setState({userData: currentUser})
+        })
     }
+
+
+    
     render() {
         return (
             <div>
                 <NavbarComp />
             <div className = "container">
-                <h1 className = "page-header">My Account</h1>
+            <h1 className = "page-header">{this.state.userData.name}</h1>
+            <h2 className='page-subheader'>@{this.state.userData.username}</h2>
                 <h1>Recent Bets</h1>
                 {
                         this.state.bets.map(bet => {
