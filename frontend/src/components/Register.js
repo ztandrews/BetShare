@@ -13,9 +13,13 @@ function Register  (){
     const [usernameReg, setUsernameReg] = useState('');
     const [passwordReg, setPasswordReg] = useState('');
 
+    const [alert, setAlert] = useState('');
+    const [fontColor, setFontColor] = useState('black')
+
     const register = (e) => {
         if (nameReg =='' || emailReg == '' || usernameReg =='' || passwordReg ==''){
-            alert("Invalid registration. Please fill out every field.")
+            setAlert("Invalid registration. Please fill out every field.");
+            setFontColor('#dc3545')
         }
         else{
         axios.post("http://localhost:8000/register", {
@@ -29,10 +33,12 @@ function Register  (){
             console.log(response.status);
             const resp = response.status;
             if (resp == 200){
-                alert("User created successfully!")
+                setAlert("Account created successfully!");
+                setFontColor("#5aa864");
             }
             else{
-                alert("Error registering user.")
+                setAlert("Error registering user.");
+                setFontColor('#dc3545')
             }
         });
     }
@@ -82,6 +88,7 @@ function Register  (){
                   <br></br>
                   
                   <Nav.Link as={Link} to={"/login"}>Back to Login</Nav.Link>
+                  <h5 style={{color: fontColor}}>{alert}</h5>
                   
 
           </div>

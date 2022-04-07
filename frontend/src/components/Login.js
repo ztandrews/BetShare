@@ -17,11 +17,15 @@ function Login  (){
         
     const [loginStatus, setLoginStatus] = useState('')
 
+    const [alert, setAlert] = useState('');
+    const [fontColor, setFontColor] = useState('black')
+
     const login = () =>{
         const username = username1;
         const password = password1;
         if (username == '' || password == ''){
-            alert("Invalid login. Please enter your username and password.")
+            setAlert("Invalid login credentials.")
+            setFontColor('#dc3545')
         }
         else{
         axios.post(`http://localhost:8000/login?username=${username}&password=${password}`, {
@@ -74,6 +78,7 @@ function Login  (){
                   <br></br>
                   <p>Don't hace an account?
                   <Nav.Link as={Link} to={"/register"}>Register</Nav.Link>
+                  <h5 style={{color: fontColor}}>{alert}</h5>
                   </p>
 
           </div>
