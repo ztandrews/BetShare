@@ -66,7 +66,7 @@ function Login  (){
                   ></input>
                   <br></br>
                   <br></br>
-                  <input type="text" name="password" placeholder='Password'
+                  <input type="password" name="password" placeholder='Password'
                   onChange={(e) => {
                   setPassword(e.target.value);
               }}
