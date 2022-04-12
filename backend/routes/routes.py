@@ -117,3 +117,11 @@ async def login_user(username, password):
         return {"status":"invalid username or password","data":user}
     else:
         return {"status":"ok","data":user}
+
+#Update bet status
+@api_router.put("/status/{bet_id}/{status}")
+async def update_status(bet_id, status):
+    id = bet_id
+    id_object = ObjectId(id)
+    bets_collection.update_one({"_id":id_object}, {"$set" :{"outcome":status}})
+    return {"status":"ok", "data":"ok"}

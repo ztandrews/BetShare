@@ -39,7 +39,7 @@ function Login  (){
             setLoginStatus(response.data.data[0].id);
             localStorage.setItem('user_id', response.data.data[0].id);
             console.log(localStorage.getItem('user_id'));
-            navigate("/");
+            navigate("/home");
             }
         })
         }

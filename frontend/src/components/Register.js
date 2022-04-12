@@ -87,7 +87,7 @@ function Register  (){
                   <button className='blue-btn' onClick={register}>Register</button>
                   <br></br>
                   
-                  <Nav.Link as={Link} to={"/login"}>Back to Login</Nav.Link>
+                  <Nav.Link as={Link} to={"/"}>Back to Login</Nav.Link>
                   <h5 style={{color: fontColor}}>{alert}</h5>
                   
 

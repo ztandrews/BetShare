@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import { Modal, Button } from 'react-bootstrap';
 import NavbarComp from './NavbarComp';
 
 export default class Account extends Component {
     state= {
         userData: [],
-        bets: []
+        bets: [],
+        show: false,
+        setShow: false,
+        currentBetId: '',
+        currentBetFor: '',
+        currentBetDetails: '',
+        currentBetStatus: ''
     }
 
         componentDidMount(){
@@ -23,10 +29,29 @@ export default class Account extends Component {
             this.setState({userData: currentUser})
         })
     }
-
-
     
     render() {
+        const handleClose = () => {
+            this.setState({show: false});
+        }
+        const updateStatus = (_id, tfor, bdetails, bstatus) =>{
+            this.setState({currentBetId: _id});
+            this.setState({currentBetFor: tfor});
+            this.setState({currentBetDetails: bdetails});
+            this.setState({currentBetStatus: bstatus})
+            this.setState({show: true});
+        }
+
+        const updateBetStatus = (_id, outcome) => {
+            console.log(_id);
+            console.log(outcome);
+            axios.put(`http://127.0.0.1:8000/status/${_id}/${outcome}`).then(res => {
+                console.log(res);
+                this.setState({show: false});
+                window.location.reload();
+            })
+        }
+
         return (
             <div>
                 <NavbarComp />
@@ -34,6 +59,19 @@ export default class Account extends Component {
             <h1 className = "page-header">{this.state.userData.name}</h1>
             <h2 className='page-subheader'>@{this.state.userData.username}</h2>
                 <h1>Recent Bets</h1>
+                <Modal show={this.state.show} onHide={handleClose}>
+                <Modal.Header closeButton>
+          <Modal.Title>Update Bet Status</Modal.Title>
+        </Modal.Header>
+                 <Modal.Body>
+                     <h5>{this.state.currentBetFor} {this.state.currentBetDetails}</h5>
+                     <h6>Current Status: {this.state.currentBetStatus}</h6>
+                     <Button className='btn btn-success' onClick = {() => updateBetStatus(this.state.currentBetId, "Win")}>Win</Button>
+                     <br></br>
+                     <br></br>
+                    <Button className='btn btn-danger' onClick = {() => updateBetStatus(this.state.currentBetId, "Loss")}>Loss</Button>
+                  </Modal.Body>
+            </Modal>
                 {
                         this.state.bets.map(bet => {
                             return(
@@ -48,7 +86,7 @@ export default class Account extends Component {
                                 <button className='red-btn'>Like</button>
                                 <br></br>
                                 <br></br>
-                                <button className='blue-btn'>Update Status</button>
+                                <button className='blue-btn' onClick={() => updateStatus(bet.id, bet.team_for.team, bet.details, bet.outcome)}>Update Status</button>
                                 </div>
                                 <br></br>
                                 </div>

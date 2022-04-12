@@ -19,12 +19,12 @@ export default class NavbarComp extends Component {
                                 <Nav className="me-auto">
                                 </Nav>
                                 <Nav>
-                                    <Nav.Link as={Link} to={"/"}>Feed</Nav.Link>
+                                    <Nav.Link as={Link} to={"/home"}>Feed</Nav.Link>
                                     <Nav.Link as={Link} to={"/account"}>Account</Nav.Link>
                                     <Nav.Link as={Link} to={"/discover"}>Discover</Nav.Link>
                                     <Nav.Link as={Link} to={"/add_bet"}>Add Bet</Nav.Link>
                                     
-                                    <Nav.Link as={Link} to={"/login"}>Logout</Nav.Link>
+                                    <Nav.Link as={Link} to={"/"}>Logout</Nav.Link>
                                 </Nav>
                             </Navbar.Collapse>
                         </Container>

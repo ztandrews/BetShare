@@ -20,11 +20,11 @@ function App() {
     <Router>
     <div>
       <Routes>
-        <Route path="/" element={<Feed />}></Route>
+        <Route path="/home" element={<Feed />}></Route>
         <Route path="/account" element={<Account/>}></Route>
         <Route path="/discover" element={<Discover/>}></Route>
         <Route path="/add_bet" element={<AddBet/>}></Route>
-        <Route path="/login" element={<Login/>}></Route>
+        <Route path="/" element={<Login/>}></Route>
         <Route path="/register" element={<Register/>}></Route>
         </Routes>
     </div>
