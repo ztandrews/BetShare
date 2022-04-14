@@ -10,7 +10,8 @@ export default class Feed extends Component {
     }
 
     componentDidMount(){
-        axios.get("http://127.0.0.1:8000/bets").then(res => {
+        const user = localStorage.getItem('user_id');
+        axios.get(`http://127.0.0.1:8000/feed/${user}`).then(res => {
             const bets = res.data.data;
             console.log(bets);
             this.setState({bets: bets});
@@ -24,7 +25,21 @@ export default class Feed extends Component {
         
     }
 
+
+
     render() {
+
+
+
+        const likePost = (_id) =>{
+            console.log(_id);
+            axios.post(`http://127.0.0.1:8000/like/${_id}`).then(res =>{
+                console.log(res);
+            })
+        }
+
+
+
         return (
             <div>
                 <NavbarComp/>
@@ -38,15 +53,15 @@ export default class Feed extends Component {
                             return(
                                 <div key={bet.id}>
                                 <div className='bet'>
-                                <h2 className='blue'>{bet.user.name}</h2>
-                                <h5 className='blue'>@{bet.user.username}</h5>
+                                <h2 className='blue'>{bet.user_data.name}</h2>
+                                <h5 className='blue'>@{bet.user_data.username}</h5>
                                 <h2>{bet.team_for.city} {bet.team_for.team} {bet.details}</h2>
                                 <h5>{bet.team_for.city} {bet.team_for.team} vs. {bet.team_against.city} {bet.team_against.team}</h5>
                                 <h5>{bet.odds}</h5>
                                 <h5>${bet.amount}</h5>
                                 <h5>Status: {bet.outcome}</h5>
                                 <h5>Likes: {bet.likes}</h5>
-                                <button className='red-btn'>Like</button>
+                                <button className='red-btn' onClick={() => likePost(bet.id)}>Like</button>
                                 </div>
                                 <br></br>
                                 </div>

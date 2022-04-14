@@ -32,7 +32,7 @@ function Login  (){
         }).then((response) => {
             const status = (response.data.status);
             if (status != "ok"){
-                alert("Invalid username or password.")
+                setAlert("Invalid username or password.")
             }
             else{
             //console.log(response.data.data[0].id);

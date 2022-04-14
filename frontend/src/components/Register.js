@@ -28,7 +28,9 @@ function Register  (){
             username: usernameReg, 
             password: passwordReg,
             wins: 0,
-            losses: 0 
+            losses: 0,
+            followers: [],
+            following: []
         }).then((response) => {
             console.log(response.status);
             const resp = response.status;

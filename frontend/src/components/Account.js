@@ -77,15 +77,14 @@ export default class Account extends Component {
                             return(
                                 <div key={bet.id}>
                                 <div className='bet'>
+                                <h2 className='blue'>{bet.user_data.name}</h2>
+                                <h5 className='blue'>@{bet.user_data.username}</h5>
                                 <h2>{bet.team_for.city} {bet.team_for.team} {bet.details}</h2>
                                 <h5>{bet.team_for.city} {bet.team_for.team} vs. {bet.team_against.city} {bet.team_against.team}</h5>
                                 <h5>{bet.odds}</h5>
                                 <h5>${bet.amount}</h5>
                                 <h5>Status: {bet.outcome}</h5>
                                 <h5>Likes: {bet.likes}</h5>
-                                <button className='red-btn'>Like</button>
-                                <br></br>
-                                <br></br>
                                 <button className='blue-btn' onClick={() => updateStatus(bet.id, bet.team_for.team, bet.details, bet.outcome)}>Update Status</button>
                                 </div>
                                 <br></br>

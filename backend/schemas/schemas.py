@@ -4,6 +4,12 @@ from bson.json_util import dumps, CANONICAL_JSON_OPTIONS, loads
 
 #How users will be presented
 def user_serializer(user) -> dict:
+    followers = []
+    following = []
+    for follower in user["followers"]:
+        followers.append(str(follower))
+    for follow in user["following"]:
+        following.append(str(follow))
     return{
         "id":str(user["_id"]),
         "name":user["name"],
@@ -11,7 +17,9 @@ def user_serializer(user) -> dict:
         "password":user["password"],
         "losses":user["losses"],
         "username":user["username"],
-        "wins":user["wins"]
+        "wins":user["wins"],
+        "followers":followers,
+        "following":following
     }
 
 def users_serializer(users) -> list:
@@ -63,10 +71,12 @@ def teams_searializer(teams) -> list:
 def bet_serializer_no_user(bet) -> dict:
     team_for_dict = bet["team_for"][0]
     team_against_dict = bet["team_against"][0]
-
+    user_dict = bet["user_data"][0]
     return{
         "id":str(bet["_id"]),
         "user":str(bet["user"]),
+        "user_data":{"id":str(user_dict["_id"]),"username":user_dict["username"], "name":user_dict["name"],
+        "wins":user_dict["wins"],"losses":user_dict["losses"]},
         "team_for":{"id":str(team_for_dict["_id"]),"city":team_for_dict["city"],"team":team_for_dict["team"],
         "abv":team_for_dict["abv"],"league":team_for_dict["league"]},
         "team_against":{"id":str(team_against_dict["_id"]),"city":team_against_dict["city"],"team":team_against_dict["team"],

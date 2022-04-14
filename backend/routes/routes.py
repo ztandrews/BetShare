@@ -1,3 +1,4 @@
+import this
 from fastapi import APIRouter
 from config.database import users_collection, bets_collection, teams_collection
 from models.models import User, Bet
@@ -24,6 +25,7 @@ async def get_user_by_id(user_id):
     id = user_id
     id_object = ObjectId(id)
     user = users_serializer(users_collection.find({"_id":id_object}))
+    print((user[0]["following"][0]))
     return {"status":"ok", "data":user}
 
 #Get all bets
@@ -99,6 +101,14 @@ async def get_bets_by_user(user_id):
             'as': 'team_against'
         }
     },
+    {
+                '$lookup': {
+                    'from': 'users',
+                    'localField': 'user',
+                    'foreignField': '_id',
+                    'as': 'user_data'
+                }
+            }
 ]))
     return {"status":"ok","data":bets}
 
@@ -125,3 +135,88 @@ async def update_status(bet_id, status):
     id_object = ObjectId(id)
     bets_collection.update_one({"_id":id_object}, {"$set" :{"outcome":status}})
     return {"status":"ok", "data":"ok"}
+
+#Get feed
+@api_router.get("/feed/{user_id}")
+async def get_feed(user_id):
+    id = user_id
+    id_object = ObjectId(id)
+    user = users_serializer(users_collection.find({"_id":id_object}))
+    user = user[0]
+    following = user["following"]
+    bets = []
+    this_users_bets=bets_serializer_no_user((bets_collection.aggregate([
+            {
+                '$match': {
+                    'user': id_object
+                }
+            },
+            {
+                '$lookup': {
+                    'from': 'teams',
+                    'localField': 'team_for',
+                    'foreignField': '_id',
+                    'as': 'team_for'
+                }
+            }, {
+                '$lookup': {
+                    'from': 'teams',
+                    'localField': 'team_against',
+                    'foreignField': '_id',
+                    'as': 'team_against'
+                }
+            },{
+                '$lookup': {
+                    'from': 'users',
+                    'localField': 'user',
+                    'foreignField': '_id',
+                    'as': 'user_data'
+                }
+            }
+        ])))
+    for users_bet in this_users_bets:
+        bets.append(users_bet)
+    for follow in following:
+        print(type(follow))
+        following_id = ObjectId(follow)
+        users_bets=bets_serializer_no_user(bets_collection.aggregate([
+            {
+                '$match': {
+                    'user': following_id
+                }
+            },
+            {
+                '$lookup': {
+                    'from': 'teams',
+                    'localField': 'team_for',
+                    'foreignField': '_id',
+                    'as': 'team_for'
+                }
+            }, {
+                '$lookup': {
+                    'from': 'teams',
+                    'localField': 'team_against',
+                    'foreignField': '_id',
+                    'as': 'team_against'
+                }
+            },{
+                '$lookup': {
+                    'from': 'users',
+                    'localField': 'user',
+                    'foreignField': '_id',
+                    'as': 'user_data'
+                }
+            }
+        ]))
+        for b in users_bets:
+            bets.append(b)
+    return {"status":"ok", "data":bets}
+
+#Like post
+@api_router.post("/like/{bet_id}")
+async def like_post(bet_id):
+    id = bet_id
+    id_object = ObjectId(id)
+    bets_collection.update_one({"_id":id_object},{"$inc" :{"likes":1}})
+    return {"status":"ok","data":"ok"}
+
