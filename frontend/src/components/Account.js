@@ -12,14 +12,15 @@ export default class Account extends Component {
         currentBetId: '',
         currentBetFor: '',
         currentBetDetails: '',
-        currentBetStatus: ''
+        currentBetStatus: '',
+        followers: 0,
+        following: 0
     }
 
         componentDidMount(){
         const user = localStorage.getItem('user_id')
         axios.get(`http://127.0.0.1:8000/bets/${user}`).then(res => {
             const bets = res.data.data;
-           
             this.setState({bets: bets});
         })
 
@@ -27,6 +28,17 @@ export default class Account extends Component {
             const currentUser = res.data.data[0];
             console.log(currentUser)
             this.setState({userData: currentUser})
+            let followerCount = 0;
+           for (const follower of currentUser.followers){
+               followerCount += 1;
+           }
+           this.setState({followers: followerCount});
+
+           let followingCount = 0;
+           for (const following of currentUser.following){
+               followingCount += 1;
+           }
+           this.setState({following: followingCount});
         })
     }
     
@@ -58,7 +70,7 @@ export default class Account extends Component {
             <div className = "container">
             <h1 className = "page-header">{this.state.userData.name}</h1>
             <h2 className='page-subheader'>@{this.state.userData.username}</h2>
-                <h1>Recent Bets</h1>
+            <h5 className='page-subheader'>Followers: {this.state.followers} Following: {this.state.following}</h5>
                 <Modal show={this.state.show} onHide={handleClose}>
                 <Modal.Header closeButton>
           <Modal.Title>Update Bet Status</Modal.Title>
@@ -81,6 +93,7 @@ export default class Account extends Component {
                                 <h5 className='blue'>@{bet.user_data.username}</h5>
                                 <h2>{bet.team_for.city} {bet.team_for.team} {bet.details}</h2>
                                 <h5>{bet.team_for.city} {bet.team_for.team} vs. {bet.team_against.city} {bet.team_against.team}</h5>
+                                <h5>Date: {bet.date.substring(0,10)}</h5>
                                 <h5>{bet.odds}</h5>
                                 <h5>${bet.amount}</h5>
                                 <h5>Status: {bet.outcome}</h5>

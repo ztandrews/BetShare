@@ -38,8 +38,6 @@ export default class Feed extends Component {
             })
         }
 
-
-
         return (
             <div>
                 <NavbarComp/>
@@ -47,7 +45,6 @@ export default class Feed extends Component {
                 <h1 className = "page-header">Feed</h1>
                 <h1></h1>
                 <div>
-                  
                     {
                         this.state.bets.map(bet => {
                             return(
@@ -57,6 +54,7 @@ export default class Feed extends Component {
                                 <h5 className='blue'>@{bet.user_data.username}</h5>
                                 <h2>{bet.team_for.city} {bet.team_for.team} {bet.details}</h2>
                                 <h5>{bet.team_for.city} {bet.team_for.team} vs. {bet.team_against.city} {bet.team_against.team}</h5>
+                                <h5>Date: {bet.date.substring(0,10)}</h5>
                                 <h5>{bet.odds}</h5>
                                 <h5>${bet.amount}</h5>
                                 <h5>Status: {bet.outcome}</h5>

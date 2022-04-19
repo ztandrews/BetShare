@@ -14,6 +14,7 @@ import Discover from './components/Discover';
 import AddBet from './components/AddBet';
 import Login from './components/Login';
 import Register from './components/Register';
+import User from './components/User';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/add_bet" element={<AddBet/>}></Route>
         <Route path="/" element={<Login/>}></Route>
         <Route path="/register" element={<Register/>}></Route>
+        <Route path="/user/:username" element={<User/>}></Route>
         </Routes>
     </div>
     </Router>

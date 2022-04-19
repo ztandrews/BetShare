@@ -49,6 +49,7 @@ def bet_serializer(bet) -> dict:
         "details":bet["details"],
         "outcome":bet["outcome"],
         "likes":bet["likes"],
+        "date":bet["date"]
 
     }
 
@@ -86,6 +87,7 @@ def bet_serializer_no_user(bet) -> dict:
         "details":bet["details"],
         "outcome":bet["outcome"],
         "likes":bet["likes"],
+        "date":bet["date"]
     }
 
 def bets_serializer_no_user(bets) -> list:

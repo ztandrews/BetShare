@@ -25,7 +25,6 @@ async def get_user_by_id(user_id):
     id = user_id
     id_object = ObjectId(id)
     user = users_serializer(users_collection.find({"_id":id_object}))
-    print((user[0]["following"][0]))
     return {"status":"ok", "data":user}
 
 #Get all bets
@@ -110,6 +109,8 @@ async def get_bets_by_user(user_id):
                 }
             }
 ]))
+    bets.sort(key = lambda x:x['date'])
+    bets = bets[::-1]
     return {"status":"ok","data":bets}
 
 #Register
@@ -210,6 +211,8 @@ async def get_feed(user_id):
         ]))
         for b in users_bets:
             bets.append(b)
+    bets.sort(key = lambda x:x['date'])
+    bets = bets[::-1]
     return {"status":"ok", "data":bets}
 
 #Like post

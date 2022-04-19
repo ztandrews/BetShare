@@ -25,6 +25,7 @@ export default class AddBet extends Component {
 
     handleSubmit = event => {
         const current_user = localStorage.getItem('user_id')
+        const current_date = new Date()
         axios.post('http://127.0.0.1:8000/bets', {         
         user: current_user,
         team_for: this.state.team_for,
@@ -32,6 +33,7 @@ export default class AddBet extends Component {
         details: this.state.type,
         amount: this.state.amount,
         odds: this.state.odds,
+        date: current_date,
         likes: 0,
         outcome: "Pending"}).then(
             res=>{
