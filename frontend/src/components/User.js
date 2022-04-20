@@ -9,13 +9,20 @@ export default class User extends Component {
         bets: [],
         userData: [],
         followers: 0,
-        following: 0
+        following: 0,
+        is_following: false,
+        button_text: "Follow",
+        button_class: ""
     }
 
 
     componentDidMount(){
         const uid_window = window.location.pathname;
         const uid = uid_window.substring(6);
+
+        const user = localStorage.getItem('user_id');
+
+
         axios.get(`http://127.0.0.1:8000/bets/${uid}`).then(res => {
             const bets = res.data.data;
             this.setState({bets: bets});
@@ -36,6 +43,22 @@ export default class User extends Component {
            }
            this.setState({following: followingCount});
         })
+
+        axios.get(`http://127.0.0.1:8000/user/${user}/following/${uid}`).then(res => {
+            const isFollowing = res.data.data;
+            console.log("Is following?");
+            console.log(isFollowing.toString())
+            this.setState({is_following: isFollowing})
+            if (isFollowing === true){
+                this.setState({button_text:"Following"})
+                this.setState({button_class:"btn btn-outline-primary"})
+            }
+            else{
+                this.setState({button_text:"Follow"})
+                this.setState({button_class:"btn btn-primary"})
+            }
+        })
+
     }
 
 
@@ -43,7 +66,21 @@ export default class User extends Component {
   render() {
     const uid_window = window.location.pathname;
     const uid = uid_window.substring(6);
-  
+    const user = localStorage.getItem('user_id');
+
+    const handleFollow = () => {
+        if (this.state.is_following == false){
+            axios.post(`http://127.0.0.1:8000/user/${user}/add/following/${uid}`)
+            axios.post(`http://127.0.0.1:8000/user/${uid}/add/follower/${user}`)
+            window.location.reload();
+        }
+        else{
+            axios.post(`http://127.0.0.1:8000/user/${user}/remove/following/${uid}`)
+            axios.post(`http://127.0.0.1:8000/user/${uid}/remove/follower/${user}`)
+            window.location.reload();
+        }
+    }
+
     return (
         <div>
             <NavbarComp/>
@@ -51,7 +88,8 @@ export default class User extends Component {
           <h1 className='page-header'>{this.state.userData.name}</h1>
           <h1 className='page-subheader'>@{this.state.userData.username}</h1>
           <h5 className='page-subheader'>Followers: {this.state.followers} Following: {this.state.following}</h5>
-          <center><Button>Follow</Button></center>
+          <center><button className={this.state.button_class} onClick={() => handleFollow()}>{this.state.button_text}</button></center>
+          <br></br>
           {
                         this.state.bets.map(bet => {
                             return(

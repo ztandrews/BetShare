@@ -223,3 +223,50 @@ async def like_post(bet_id):
     bets_collection.update_one({"_id":id_object},{"$inc" :{"likes":1}})
     return {"status":"ok","data":"ok"}
 
+#Add follower
+@api_router.post("/user/{user_id}/add/follower/{follower_id}")
+async def add_follower(user_id, follower_id):
+    user = ObjectId(user_id)
+    follower = ObjectId(follower_id)
+    users_collection.update_one({"_id":user},{"$addToSet":{"followers":follower}})
+    return {"status":"ok"}
+
+#Add following
+@api_router.post("/user/{user_id}/add/following/{following_id}")
+async def add_following(user_id, following_id):
+    user = ObjectId(user_id)
+    following = ObjectId(following_id)
+    users_collection.update_one({"_id":user},{"$addToSet":{"following":following}})
+    return {"status":"ok"}
+
+#Remove follower
+@api_router.post("/user/{user_id}/remove/follower/{follower_id}")
+async def remove_follower(user_id, follower_id):
+    user = ObjectId(user_id)
+    follower = ObjectId(follower_id)
+    users_collection.update_one({"_id":user},{"$pull":{"followers":follower}})
+    return {"status":"ok"}
+
+#Remove following
+@api_router.post("/user/{user_id}/remove/following/{following_id}")
+async def remove_following(user_id, following_id):
+    user = ObjectId(user_id)
+    following = ObjectId(following_id)
+    users_collection.update_one({"_id":user},{"$pull":{"following":following}})
+    return {"status":"ok"}
+
+#Check following
+@api_router.get("/user/{user_id}/following/{following_id}")
+async def check_following(user_id, following_id):
+    user = ObjectId(user_id)
+    following = ObjectId(following_id)
+    user_data = users_serializer(users_collection.find({"_id":user}))
+    user_data = user_data[0]
+    is_following = False
+    for following_user in user_data["following"]:
+        following_user = ObjectId(following_user)
+        if following_user == following:
+            is_following = True
+        else:
+            continue
+    return {"status":"ok", "data":is_following}
