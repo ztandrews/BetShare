@@ -1,39 +1,42 @@
-import React, { Component } from 'react'
+import React, { Component, useState, useEffect, useRef } from 'react'
 import axios from 'axios';
 import NavbarComp from './NavbarComp';
-import { Navbar, Nav,  Container, Button } from 'react-bootstrap'
+import { Navbar, Nav,  Container, Button} from 'react-bootstrap'
 import {
     Link, useNavigate
 } from "react-router-dom";
 
+function Discover() {
 
-export default class Discover extends Component {
-    state= {
-        users: []
-    }
+    const [all_users, setUsers] = useState([]);
     
+    const [searchTerm, setSearchTerm] = useState('')
 
-    componentDidMount(){
+    useEffect(() => {
         axios.get("http://127.0.0.1:8000/users").then(res => {
-            const users = res.data.data;
-            console.log(users);
-            this.setState({users: users});
-        })
-    }
+        const users = res.data.data;
+        console.log(users);
+        setUsers(users);
+    })},[]);
 
-
-    render() {
-        return (
-            <div>
-                <NavbarComp />
-            <div className = "container">
-                <h1 className = "page-header">Discover</h1>
-                <input placeholder="Search for a user" className='search'></input>
+  return (
+    <div>
+        <NavbarComp />
+        <div className = "container">
+            <h1 className = "page-header">Discover</h1>
+                <input placeholder="Search for a user" className='search' onChange={event => setSearchTerm(event.target.value)}></input>
                 <br></br>
                 <br></br>
                 <div>
                     {
-                        this.state.users.map(user => {
+                        all_users.filter((user)=> {
+                            if (searchTerm === ''){
+                                return user
+                            }
+                            else if (user.username.toLowerCase().includes(searchTerm.toLowerCase())){
+                                return user
+                            }
+                        }).map(user => {
                             return(
                                 <div key={user.id}>
                                 <div className='bet'>
@@ -47,8 +50,9 @@ export default class Discover extends Component {
                     )
                     }
                 </div>
-            </div>
-            </div>
-        )
-    }
+        </div>
+    </div>
+  )
 }
+
+export default Discover
