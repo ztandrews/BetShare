@@ -64,6 +64,15 @@ export default class Account extends Component {
             })
         }
 
+        const deleteBet = (_id) => {
+            console.log(_id);
+            axios.delete(`http://127.0.0.1:8000/bets/${_id}`).then(res => {
+                this.setState({show: false});
+                window.location.reload();
+            }
+            )
+        }
+
         return (
             <div>
                 <NavbarComp />
@@ -82,6 +91,8 @@ export default class Account extends Component {
                      <br></br>
                      <br></br>
                     <Button className='btn btn-danger' onClick = {() => updateBetStatus(this.state.currentBetId, "Loss")}>Loss</Button>
+                    <hr></hr>
+                    <button className = 'btn btn-outline-danger' onClick = {() => deleteBet(this.state.currentBetId)}>Delete Bet</button>
                   </Modal.Body>
             </Modal>
                 {

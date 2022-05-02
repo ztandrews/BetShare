@@ -65,7 +65,6 @@ export default class AddBet extends Component {
                             <option value = {team.id}>{team.city} {team.team}</option>
                         ))}
                     </select>
-
                     <h3>Team Against</h3>
                     <select name = "team_against" value = {team_against} onChange={this.handleChange}>
                         {this.state.teams.map((team) => (

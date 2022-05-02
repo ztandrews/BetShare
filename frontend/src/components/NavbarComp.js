@@ -23,7 +23,6 @@ export default class NavbarComp extends Component {
                                     <Nav.Link as={Link} to={"/account"}>Account</Nav.Link>
                                     <Nav.Link as={Link} to={"/discover"}>Discover</Nav.Link>
                                     <Nav.Link as={Link} to={"/add_bet"}>Add Bet</Nav.Link>
-                                    
                                     <Nav.Link as={Link} to={"/"}>Logout</Nav.Link>
                                 </Nav>
                             </Navbar.Collapse>

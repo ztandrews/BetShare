@@ -270,3 +270,10 @@ async def check_following(user_id, following_id):
         else:
             continue
     return {"status":"ok", "data":is_following}
+
+#Delete bet
+@api_router.delete("/bets/{bet_id}")
+async def delete_bet(bet_id):
+    bet = ObjectId(bet_id)
+    bets_collection.delete_one({"_id":bet})
+    return {"status":"ok","data":"ok"}
